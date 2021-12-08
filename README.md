@@ -4,6 +4,11 @@ As a web surfer,
 So that I can save time,
 I'd like to see a list of bookmarked pages
 
+2. Add new bookmarks:
+As a web surfer,
+So that I can quickly access interesting sites,
+I'd like to add new bookmarks
+
 
 ![mvc model](./mvc_model.jpg)
 
