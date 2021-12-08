@@ -14,10 +14,8 @@ class Bookmark < Sinatra::Base
     erb(:index)
   end
 
-  get '/bookmarks' do
-    @bookmarks = Bookmarks.all
-    @presentable_bookmarks = Bookmarks.display
-    erb(:bookmarks)
+  get '/view_bookmarks' do
+    erb(:view_bookmarks)
   end
 
   # post '/names' do

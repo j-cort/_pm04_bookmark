@@ -1,7 +1,7 @@
-<% if @bookmarks == nil %>
+<% if Bookmarks.all == nil %>
   <h2>No bookmarks added</h2>
 <% else %>
-  <% @presentable_bookmarks.each do |site| %>
+  <% Bookmarks.display.each do |site| %>
     <%=site%> <br>
   <% end %>
 <% end %>

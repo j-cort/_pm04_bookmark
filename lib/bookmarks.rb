@@ -2,50 +2,24 @@ require 'pg'
 
 class Bookmarks 
   def self.all
-    connection = PG.connect(dbname: 'bookmark_manager')
-    result = connection.exec('SELECT * FROM bookmarks') 
-    result.map { |bookmark| { name: bookmark['title'], link: bookmark['url'] }}
-    # [
-    #   {
-    #   name: 'makers',
-    #   link: 'https://www.makers.tech/'
-    #   },
-    #   {
-    #   name: 'stackoverflow',
-    #   link: 'https://stackoverflow.com/'
-    #   }, 
-    #   {
-    #   name: 'github',
-    #   link: 'https://github.com/'
-    #   }
-    # ]
+    if ENV['ENVIRONMENT'] == 'test'
+      db_connect = PG.connect(dbname: 'bookmark_manager')
+    else 
+      db_connect = PG.connect(dbname: 'bookmark_manager_test')
+    end
+    table_connect = db_connect.exec('TABLE bookmarks') 
+    table_connect.map { |bookmark| { id: bookmark['id'], name: bookmark['title'], link: bookmark['url'] }}
   end
 
   def self.display
     display = []
-    self.all.each_with_index { | site, index |
-      display << "<a href='#{site[:link]}'>#{index + 1}. #{site[:name]}</a>"
+    self.all.each { | site |
+      display << "<a href='#{site[:link]}'>#{site[:id]}. #{site[:name]}</a>"
     }
     display
   end
 
-  # def sites
-  #   @sites
-  # end
-
-  # def display 
-  #   display = []
-  #   @sites.each_with_index { | site, index |
-  #     display << "<a href='#{site[:link]}'>#{index + 1}. #{site[:name]}</a>"
-  #   }
-  #   display
-  # end
-
 end
 
- # def initialize
-  #   @connection = PG.connect(dbname: 'bookmark_manager')
-  #   @result = @connection.exec('SELECT * FROM bookmarks') 
-  #   @sites = @result.map { |bookmark| { name: bookmark['title'], link: bookmark['url'] }}
-  # end
+
 
