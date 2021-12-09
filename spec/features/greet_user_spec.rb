@@ -1,4 +1,4 @@
-feature 'Homepage Greeting' do
+feature 'Feature: greet_user' do
   scenario 'greets user with Hello World!' do
     visit ('/')
     expect(page).to have_content 'Hello World!'

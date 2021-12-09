@@ -2,7 +2,7 @@
   <h2>No bookmarks added</h2>
 <% else %>
   <% Bookmarks.display.each do |site| %>
-    <%=site%> <br>
+    <%=site[0] + site[1]%> <br><br>
   <% end %>
 <% end %>
 

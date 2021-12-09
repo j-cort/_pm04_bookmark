@@ -5,5 +5,9 @@
 <h1>Hello World!</h1>
 
 <form action="/bookmarks" method="get">
-  <input type="submit" value="See Bookmarks">
+  <input type='submit' value='See Bookmarks'>
 </form>
+
+<form action='/delete_bookmark' method='post'><input type='hidden' name='to_delete' value='#{site[:id]}'><input type='submit' value='Delete #{site[:title]}'></form>
+
+<input type='hidden' name='to_delete' value='#{site[:id]}'>

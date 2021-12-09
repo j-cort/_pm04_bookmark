@@ -9,6 +9,11 @@ As a web surfer,
 So that I can quickly access interesting sites,
 I'd like to add new bookmarks
 
+3. Delete bookmarks:
+As a web surfer,
+So that I can reduce clutter and confusion,
+I'd like to delete bookmarks I no longer need
+
 
 ![mvc model](./mvc_model.jpg)
 
