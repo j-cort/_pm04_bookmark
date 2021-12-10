@@ -32,12 +32,12 @@ class Bookmarks
 
   def edit_button
     "<div class='#{@title} bm-edit-button'>
-      <button type='submit' value='Edit'><i class='fas fa-edit fa-5x'></i></button>
+      <button type='submit' value='Edit' onclick='toggleEditForm(#{@id})'><i class='fas fa-edit fa-5x'></i></button>
     </div>" 
   end
 
   def edit_form
-    "<form class='#{@title} bm-edit-form' action='/edit_bookmark' method='post'>
+    "<form id='edit-bookmark-#{@id}' class='#{@title} bm-edit-form' action='/edit_bookmark' method='post'>
       <input type='hidden' name='to_edit' value='#{@id}'>
       <input type='text' name='new_url' placeholder='#{@url}'>
       <input type='text' name='new_title' placeholder='#{@title}'>
