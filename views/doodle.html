@@ -1,3 +1,35 @@
+<i class="fas fa-trash-alt"></i>
+<i class='fas fa-edit'></i>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="">
+  <script src="/script.js" defer></script>
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html>
+
+
+<% if Bookmarks.all == nil %>
+<h2>No bookmarks added</h2>
+<% else %>
+<% Bookmarks.display.each do |site| %>
+  <%=site[0] + site[1] + site[2]%> <br><br>
+<% end %>
+<% end %>
+
+
+
+
+
+
 <h2>No added bookmarks</h2>
 
 <a href=""></a>

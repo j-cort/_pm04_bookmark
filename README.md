@@ -1,8 +1,11 @@
-# Specifications/User Stories
+# Specifications & Corresponding User Stories
 1. Show a list of bookmarks:
 As a web surfer,
 So that I can save time,
 I'd like to see a list of bookmarked pages
+
+### Domain model for first user story
+![mvc model](./mvc_model.jpg)
 
 2. Add new bookmarks:
 As a web surfer,
@@ -14,28 +17,38 @@ As a web surfer,
 So that I can reduce clutter and confusion,
 I'd like to delete bookmarks I no longer need
 
+3. Update bookmarks:
+As a web surfer,
+So that I can correct errors and improve organisation,
+I'd like to update existing bookmarks
 
-![mvc model](./mvc_model.jpg)
 
-Database Setup
+PROD Database Setup
 --------------
-1. Connect to psql
-2. Create the database using the psql command CREATE DATABASE bookmark_manager;
-3. Connect to the database using the pqsl command \c bookmark_manager;
-4. Run the query we have saved in the file 01_create_bookmarks_table.sql
+1. Connect to psql:
+"psql"
+2. Create the database using the psql command:
+"CREATE DATABASE bookmark_manager;"
+3. Connect to the database using the pqsl command:
+"\c bookmark_manager;"
+4. Run the query we have saved in the file 01_create_bookmarks_table.sql:
+"CREATE TABLE bookmarks(id SERIAL PRIMARY KEY, url VARCHAR(60), title VARCHAR(60));"
+5. Insert rows into table with sql queries:
+"INSERT INTO bookmarks (url, title) VALUES ('http://www.makersacademy.com', 'makers');"
+"INSERT INTO bookmarks (url, title) VALUES('http://www.destroyallsoftware.com', 'destroyallsoftware');"
+"INSERT INTO bookmarks (url, title) VALUES('http://www.google.com', 'google');" 
 
-#insert into table
-INSERT INTO bookmarks (url, title) VALUES ('http://www.askjeeves.com', 'askjeeves);
-
-resource
-https://github.com/makersacademy/course/blob/main/bookmark_manager/walkthroughs/06.md
 
 TEST Database Setup
 --------------
-1. Connect to psql
-2. Create the database using the psql command CREATE DATABASE bookmark_manager_test;
-3. Connect to the database using the pqsl command \c bookmark_manager_test;
-4. Run the query we have saved in the file 01_create_bookmarks_table.sql
+1. Connect to psql:
+"psql"
+2. Create the database using the psql command:
+"CREATE DATABASE bookmark_manager_test;"
+3. Connect to the database using the pqsl command:
+"\c bookmark_manager_test;"
+4. A 'bookmarks' table is constructes/deconstructed before/after each test using methods in:
+spec/construct_test_database.rb
+spec/deconstruct_test_database.rb
+*These methods are called in spec_helper.rb within the RSPEC.configure section*
 
-#insert into table
-INSERT INTO bookmarks (url, title) VALUES ('http://www.askjeeves.com', 'askjeeves);

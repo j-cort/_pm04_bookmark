@@ -1,8 +1,61 @@
-<% if Bookmarks.all == nil %>
-  <h2>No bookmarks added</h2>
-<% else %>
-  <% Bookmarks.display.each do |site| %>
-    <%=site[0] + site[1]%> <br><br>
-  <% end %>
-<% end %>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Bookmarks App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Lobster&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+    <script src="/script.js" defer></script>
+  </head>
+  <body>
+    <%# Homepage Title %>
+    <div id="main-title">
+      <a href="/"><h1>Basic Bookmarks</h1></a>
+    </div>
+    <div class="view-container">
+      <%# Bookmarks Display %>
+        <% if @bookmarks == nil %>
+          <h2>No bookmarks added</h2>
+        <% else %>
+          <% @bookmarks.each do |bookmark| %>
+            <div class="bm-block">
+              <%=bookmark.display%><br> 
+              <div class="bm-editor">
+                <div class="bm-delete">
+                  <%=bookmark.delete_button%>
+                </div>
+                <div class="bm-update">
+                  <%=bookmark.edit_button%>    
+                </div>                
+              </div>
+              <%=bookmark.edit_form%>
+            </div>
+          <% end %>
+        <% end %>
+      <%# Add Bookmark Form %>
+    </div>
+    <div class='add-container'>
+      <h2>Add A New Bookmark</h2>
+      <div class="add-block">
+        <form class='add-form' action="/new_bookmark" method="post">
+          <input type="text" name="url" placeholder="Enter URL" required>
+          <input type="text" name="title" placeholder="Enter title" required>
+          <button type='submit' value='Submit'><i class="fas fa-plus fa-3x"></i></button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
+
+
+
+
+
+
+
 

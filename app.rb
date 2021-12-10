@@ -15,11 +15,8 @@ class Bookmark < Sinatra::Base
   end
 
   get '/view_bookmarks' do
+    @bookmarks = Bookmarks.all
     erb(:view_bookmarks)
-  end
-
-  get '/add_bookmark' do
-    erb(:add_bookmark)
   end
 
   post '/new_bookmark' do
@@ -29,6 +26,11 @@ class Bookmark < Sinatra::Base
 
   post '/delete_bookmark' do
     Bookmarks.delete(params[:to_delete])
+    redirect '/'
+  end
+
+  post '/edit_bookmark' do
+    Bookmarks.edit(params[:to_edit], params[:new_url], params[:new_title])
     redirect '/'
   end
 
