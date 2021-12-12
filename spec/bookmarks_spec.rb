@@ -15,6 +15,9 @@ let(:bookmarks) { described_class.all }
 
   describe '#add' do  
     it 'adds a new bookmark' do
+      # p bookmarks - this would cause an error because the object returned by Bookmarks.all (before Bookmarks.add is applied) would be stored
+      # in the 'bookmarks' variable. The test only refer to what is stored in the variable, it doesn not call Bookmarks.all again. Therefore 
+      # they would fail because, the final index in bookmarks all would not exist yet.
       Bookmarks.add('https://www.codecademy.com/', 'codecademy')
       expect(bookmarks[3].id).to eq '4'
       expect(bookmarks[3].url).to eq 'https://www.codecademy.com/'

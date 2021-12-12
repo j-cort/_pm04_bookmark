@@ -1,3 +1,35 @@
+<!-- 
+  #add
+Construct
+---------
+1. (db_connection) = PG>Establish Connection To>TestDB
+2. (via db_connection) = Add bookmarks table to TestDB, populate bookmarks_table
+
+Add
+---
+a. (db_connection1.5) = PG>Establish Connection To>TestDB
+b. (via db_connection1.5) = return array of hashes for bookmarks_table of TESTDB
+c. (via db_connection1.5) = wraps hashes into Bookmark objects within an array and returns the array
+
+
+1. (db_connection2) = PG>Establish Connection To>TestDB
+2. (via db_connection2) = Add row to bookmarks_table of TESTDB
+
+
+
+Deconstruct
+1. (db_connection3) = PG>Establish Connection To>TestDB
+2. 2. (via db_connection3) = Delete bookmarks_table of TESTDB 
+-->
+
+
+
+
+
+
+
+
+
 <i class="fas fa-trash-alt"></i>
 <i class='fas fa-edit'></i>
 

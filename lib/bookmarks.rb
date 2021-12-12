@@ -1,7 +1,9 @@
 require 'pg'
+require_relative 'database_connection'
 
 class Bookmarks
   attr_reader :id, :url, :title
+
   def initialize(id, url, title)
     @id = id
     @url = url
@@ -9,14 +11,8 @@ class Bookmarks
   end
   
   def self.all
-    if ENV['ENVIRONMENT'] == 'test'
-      db_connect = PG.connect(dbname: 'bookmark_manager_test')
-    else 
-      db_connect = PG.connect(dbname: 'bookmark_manager')
-    end
-    table_connect = db_connect.exec('TABLE bookmarks ORDER BY id ASC') 
-    # table_connect.map { |bookmark| { id: bookmark['id'], title: bookmark['title'], url: bookmark['url'] }}
-    table_connect.map { |bookmark| Bookmarks.new(bookmark['id'], bookmark['url'], bookmark['title']) }
+    table = DatabaseConnection.query('TABLE bookmarks ORDER BY id ASC') 
+    table.map { |bookmark| Bookmarks.new(bookmark['id'], bookmark['url'], bookmark['title']) }
   end
 
   def display
@@ -45,51 +41,16 @@ class Bookmarks
     </form>" 
   end
 
-  def self.display
-    display = []
-    self.all.each { | site |
-      display << ["<a href='#{site[:url]}'>#{site[:id]}. #{site[:title]}</a>",
-      "<form action='/delete_bookmark' method='post' class='#{site[:title]} delete' style='display:inline;'>
-      <input type='hidden' name='to_delete' value='#{site[:id]}'>
-      <input type='submit' value='Delete'>
-      </form>",
-      "<form action='/edit_bookmark' method='post' class='#{site[:title]} edit'>
-      <input type='hidden' name='to_edit' value='#{site[:id]}'>
-      <input type='text' name='new_url' placeholder='#{site[:url]}'>
-      <input type='text' name='new_title' placeholder='#{site[:title]}'>
-      <input type='submit' value='Edit'>
-      </form>"]
-     
-    }
-    display
-  end
-
   def self.add(url, title)
-    if ENV['ENVIRONMENT'] == 'test'
-      db_connect = PG.connect(dbname: 'bookmark_manager_test')
-    else 
-      db_connect = PG.connect(dbname: 'bookmark_manager')
-    end
-    db_connect.exec_params("INSERT INTO bookmarks (url, title) VALUES ($1, $2)", [url, title])
+    DatabaseConnection.query("INSERT INTO bookmarks (url, title) VALUES ($1, $2)", [url, title])
   end
 
   def self.delete(id)
-    if ENV['ENVIRONMENT'] == 'test'
-      db_connect = PG.connect(dbname: 'bookmark_manager_test')
-    else 
-      db_connect = PG.connect(dbname: 'bookmark_manager')
-    end
-    db_connect.exec_params("DELETE FROM bookmarks WHERE id = ($1)", [id])
+    DatabaseConnection.query("DELETE FROM bookmarks WHERE id = ($1)", [id])
   end
 
   def self.edit(id, new_url, new_title)
-    if ENV['ENVIRONMENT'] == 'test'
-      db_connect = PG.connect(dbname: 'bookmark_manager_test')
-    else 
-      db_connect = PG.connect(dbname: 'bookmark_manager')
-    end
-    db_connect.exec("UPDATE bookmarks SET url = '#{new_url}', title = '#{new_title}' WHERE id = #{id}")
-    # Change above to exec_params
+    DatabaseConnection.query("UPDATE bookmarks SET url = ($1), title = ($2) WHERE id = ($3)", [new_url, new_title, id])
   end
 
 end

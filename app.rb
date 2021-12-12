@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require 'sinatra/reloader'
+require './database_connection_setup'
 require './lib/bookmarks'
 
 class Bookmark < Sinatra::Base
