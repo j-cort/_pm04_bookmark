@@ -1,5 +1,3 @@
-require 'pg'
-
 feature 'Feature: view_bookmarks' do
   scenario 'user views default bookmarks' do
     visit ('/')

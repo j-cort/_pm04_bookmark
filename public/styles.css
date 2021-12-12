@@ -177,7 +177,6 @@ display: none;
 }
 
 .bm-edit-form {
-  /* display: flex; */
   display: none;
   flex-flow: column nowrap;
   justify-content: space-evenly;
@@ -252,4 +251,9 @@ display: none;
 }
 .add-block button[type="submit"]:hover {
   color:var(--primary-color)
+}
+
+.flash .message {
+  background: var(--primary-color);
+  color: yellow;
 }

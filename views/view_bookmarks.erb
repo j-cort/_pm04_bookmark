@@ -43,10 +43,13 @@
       <h2>Add A New Bookmark</h2>
       <div class="add-block">
         <form class='add-form' action="/new_bookmark" method="post">
-          <input type="text" name="url" placeholder="Enter URL" required>
-          <input type="text" name="title" placeholder="Enter title" required>
-          <button type='submit' value='Submit'><i class="fas fa-plus fa-3x"></i></button>
+          <input type="text" name="url" placeholder="Enter URL" id="add-url" required>
+          <input type="text" name="title" placeholder="Enter title" id="add-title" required>
+          <button type='submit' value='Submit'><i class="fas fa-plus fa-3x" id="add-submit"></i></button>
         </form>
+        <div id='add-invalid-url' class='flash'>
+          <p class='message'><%= @flash %></p>
+        </div>
       </div>
     </div>
   </body>

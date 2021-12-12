@@ -1,5 +1,3 @@
-require 'pg'
-
 feature 'Feature: edit_bookmark' do
   scenario 'user edits a bookmark' do
     visit ('/')
@@ -12,7 +10,6 @@ feature 'Feature: edit_bookmark' do
       fill_in 'new_title', with: 'bakers'
       click_button 'Edit'
     end
-    click_button 'View Bookmarks'
     expect(page).not_to have_content "makers"
     expect(page).to have_content "bakers"
   end

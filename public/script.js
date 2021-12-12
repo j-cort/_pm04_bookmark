@@ -6,3 +6,15 @@ function toggleEditForm(editFormId) {
     editForm.style.display = "none";
   }
 }
+
+document.getElementById('add-url').onclick = function clearFlashDiv() {
+  document.getElementById('add-invalid-url').style.display = "none";
+}
+
+document.getElementById('add-title').onclick = function clearFlashDiv() {
+  document.getElementById('add-invalid-url').style.display = "none";
+}
+
+
+
+

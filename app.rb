@@ -1,5 +1,7 @@
 require 'sinatra/base'
 require 'sinatra/reloader'
+# require 'sinatra/flash'
+require 'uri'
 require './database_connection_setup'
 require './lib/bookmarks'
 
@@ -8,6 +10,7 @@ class Bookmark < Sinatra::Base
 
   configure :development do
     register Sinatra::Reloader
+    # register Sinatra::Flash
   end
 
   # routes:
@@ -16,42 +19,25 @@ class Bookmark < Sinatra::Base
   end
 
   get '/view_bookmarks' do
+    @flash = session[:message]
     @bookmarks = Bookmarks.all
     erb(:view_bookmarks)
   end
 
   post '/new_bookmark' do
-    Bookmarks.add(params[:url], params[:title])
-    redirect '/'
+    Bookmarks.add(params[:url], params[:title]) ? session[:message] = nil : session[:message] = "Please enter a valid url!" 
+    redirect '/view_bookmarks'
   end
 
   post '/delete_bookmark' do
     Bookmarks.delete(params[:to_delete])
-    redirect '/'
+    redirect '/view_bookmarks'
   end
 
   post '/edit_bookmark' do
     Bookmarks.edit(params[:to_edit], params[:new_url], params[:new_title])
-    redirect '/'
+    redirect '/view_bookmarks'
   end
-
-  # get '/play' do
-  #   @player_name = session[:player_name]  
-  #   erb(:play)
-  # end
-
-  # post '/selection' do
-  #   session[:player_choice] = params[:player_choice] 
-  #   redirect '/results'
-  # end
-
-  # get '/results' do
-  #   @player_name = session[:player_name] 
-  #   @player_choice = session[:player_choice]
-  #   @game = Game.new(@player_name, @player_choice)
-  #   @computer_choice = @game.computer_choice
-  #   erb(:results)
-  # end 
 
   # # Start the server if this file is executed directly (do not change the line below)
   run! if app_file == $0

@@ -1,5 +1,3 @@
-require 'pg'
-
 feature 'Feature: add_bookmark:' do
   scenario 'user adds a new bookmark' do
     visit ('/')
@@ -9,7 +7,6 @@ feature 'Feature: add_bookmark:' do
       fill_in 'title', with: 'stackoverflow'
       click_button 'Submit'
     end
-    click_button 'View Bookmarks'
     expect(page).to have_content "makers"
     expect(page).to have_content "destroyallsoftware"
     expect(page).to have_content "google"

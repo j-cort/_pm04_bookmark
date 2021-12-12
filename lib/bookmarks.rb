@@ -42,6 +42,7 @@ class Bookmarks
   end
 
   def self.add(url, title)
+    return false unless self.is_url?(url)
     DatabaseConnection.query("INSERT INTO bookmarks (url, title) VALUES ($1, $2)", [url, title])
   end
 
@@ -51,6 +52,12 @@ class Bookmarks
 
   def self.edit(id, new_url, new_title)
     DatabaseConnection.query("UPDATE bookmarks SET url = ($1), title = ($2) WHERE id = ($3)", [new_url, new_title, id])
+  end
+
+  private
+
+  def self.is_url?(url)
+    url =~ /\A#{URI::regexp(['http', 'https'])}\z/
   end
 
 end
