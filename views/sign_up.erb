@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up | Basic Bookmarks App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Lobster&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" type="text/css" href="/styles.css">
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+  <script src="/script.js" defer></script>
+</head>
+<body>
+  <nav>
+    <div id="main-title">
+      <a href="/"><h1>Basic Bookmarks</h1></a>
+      <%# Sign Up/Sign In/Sign Out Buttons %>
+      <% if !@user %>
+        <form action="/users/new" method="GET">
+          <input type="submit" value="Sign Up">
+        </form>
+        <form action="/users/login" method="GET">
+          <input type="submit" value="Sign In">
+        </form>
+      <% end %>
+
+      <% if @user %>
+          <form action="/users/signout" method="POST">
+            <input type="submit" value="Sign Out">
+          </form>
+      <% end %>
+    </div>
+  </nav>
+
+  <div class='duo-form-container'>
+      <h2>Sign Up</h2>
+      <div class="duo-form-block">
+        <form class="duo-form" action="/users/new" method="POST">
+          <input type="text" name="email" id="email" placeholder="Enter Email">
+          <input type="text" name="password" id="password" placeholder="Enter Password">
+          <button type="submit" value="Sign Up"><i class="fas fa-sign-in-alt fa-3x"></i></button>
+        </form>
+        <div id='add-invalid-url' class='flash'>
+        <p class='message'><%= flash[:notice] %></p>
+        </div>
+      </div>
+    </div>
+  
+</body>
+</html>

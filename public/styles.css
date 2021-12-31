@@ -2,15 +2,10 @@
 :root {
   --primary-color: #c72727;
   --secondary-color: rgb(254, 249, 255);
-  --light-color: #f3f3f3;
+  --light-color: rgb(253, 238, 255);
   --dark-color: rgb(2, 4, 65);
+  --deep-blue: rgb(26, 24, 131);
   --max-width: 1100px;
-}
-
-.category {
-  --sports-color: #f99500;
-  --ent-color: #a66bbe;
-  --tech-color: #009cff;
 }
 
 /* Universal Styles */
@@ -18,7 +13,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  border: 1px red solid;
 }
 
 body {
@@ -28,7 +22,7 @@ body {
 }
 
 a {
-  color: rgb(26, 24, 131);
+  color: var(--deep-blue);
   text-decoration: none;
   transition: all 0.2s ease-in-out;
 }
@@ -74,30 +68,57 @@ input[type="submit"] {
 	outline: inherit;
 }
 
-/* Utility */
+/* Navigation */
+nav {
+  width: 100%;
+  text-align: center;
+  background: var(--secondary-color);
+  padding: 1rem;
+  position: sticky;
+}
+
+#main-title {
+  display: inline-block;
+}
+
 #main-title h1 {
   width: 100%;
   text-align: center;
   display: inline-block;
-  background: var(--secondary-color);
-  padding: 0.5rem 1.5rem;
+  padding: 0.2rem 0.5rem;
+  line-height: 1;
 }
 
-#main-title {
-  width: 100%;
-  display: inline-block;
+#main-title form {
+  text-align: center;
+  display: inline;
+  margin-right: 0.5rem;
+  padding: 0 0.5rem;
+  font-size: 1.5rem;
+  color: var(--deep-blue);
+  transition: all 0.2s ease-in-out;
+}
+
+#main-title form:hover {
+  color: var(--primary-color);
 }
 
 /* Homepage */
 .main-container {
   display: flex;
   flex-flow: column nowrap;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
   max-width: var(--max-width);
   height: 100vh;
   margin: auto;
   overflow: hidden;
+  position:relative;
+}
+
+#welcome {
+  text-align: center;
+  padding: 2rem;
 }
 
 #view-button input {
@@ -110,12 +131,11 @@ input[type="submit"] {
   transition: all 0.2s ease-in-out;
 }
 
-#view-button:hover input{
+#view-button:hover input {
   width: 100%;
   border: 3px solid var(--primary-color);
   background: var(--secondary-color);
   color: var(--primary-color);
-  border-radius: 0px;
 }
 
 /* Viewing Page */
@@ -134,14 +154,12 @@ input[type="submit"] {
   border: 1px solid #ccc;
   background: var(--secondary-color);
   font-size: 1.3rem;
-  color: #000;
-  font-weight: bold;
-  text-align: left;
 }
 
-.bm-editor {
+.bm-editor, 
+.bm-metadata {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   text-align: center;
   justify-content: center;
   align-items: center;
@@ -156,27 +174,28 @@ input[type="submit"] {
 }
 
 .bm-delete-button button,
-.bm-edit-button button {
-  color:var(--dark-color);
-  padding: 0.5rem;
+.bm-edit-button button,
+.bm-comments-button button,
+.bm-tags-button button {
+  border: none;
+  color: rgb(26, 24, 131);
+  padding: 0.3rem;
   background: none;
   transition: all 0.4s ease-in-out;
 }
 
 .bm-delete-button button:hover,
-.bm-edit-button button:hover {
+.bm-edit-button button:hover,
+.bm-comments-button button:hover,
+.bm-tags-button button:hover {
   color: var(--primary-color);
   padding: 0.5rem;
   background: none;
 }
 
-.bm-delete-button input[type="text"],
-.bm-edit-button input[type="text"] {
-padding: 0.5rem; 
-display: none;
-}
-
-.bm-edit-form {
+.bm-edit-form, 
+.bm-comment-form,
+.bm-tag-form {
   display: none;
   flex-flow: column nowrap;
   justify-content: space-evenly;
@@ -187,10 +206,17 @@ display: none;
   overflow: hidden;
 }
 
-.bm-edit-form input[type="text"] {
+.bm-comment-form,
+.bm-tag-form {
+  flex-flow: row nowrap;
+}
+
+.bm-edit-form input[type="text"],
+.bm-comment-form input[type="text"],
+.bm-tag-form input[type="text"] {
   display: inline-block;
   width: 100%;
-  padding: 1rem 4.5rem;
+  padding: 0.5rem;
   margin-top: 0.5rem;
   border: 2px solid var(--primary-color);
 }
@@ -199,11 +225,12 @@ display: none;
   color: rgb(26, 24, 131);
   background: var(--light-color);
   font-weight: bold;
-  font-size: 1.8rem;
+  font-size: 1.2rem;
   display: inline-block;
-  width: 100%;
-  padding: 0.3rem 4.5rem;
+  width: 30%;
+  padding: 0.3rem 0.3rem;
   margin-top: 0.5rem;
+  border-radius: 5px;
   border: 2px solid var(--primary-color);
 }
 
@@ -213,7 +240,7 @@ display: none;
   color: var(--primary-color);
 }
 
-.add-container {
+.duo-form-container {
   display: grid;
   grid-template-rows: 1fr 1fr;
   align-items: center;
@@ -225,31 +252,37 @@ display: none;
   text-align: center;
 }
 
-.add-container h2 {
+.duo-form-container h2 {
  padding: 1rem;
  width: 100%;
 }
 
-.add-form {
+.duo-form {
   display: flex;
+  flex-flow: row nowrap;
 }
 
-.add-block {
+.duo-form-block {
  padding: 1rem;
 }
 
-.add-block input[type="text"] {
+.duo-form-block input[type="text"] {
   display: inline-block;
-  padding: 1.3rem;
+  font-size: 1rem;
+  padding: 0.5rem;
   margin-right: 0.5rem;
   border: 2px solid var(--primary-color);
 }
 
-.add-block button[type="submit"] {
+.duo-form-block button[type="submit"],
+.bm-comment-form button[type="submit"],
+.bm-tag-form button[type="submit"] {
   color:var(--dark-color);
   transition: all 0.4s ease-in-out;
 }
-.add-block button[type="submit"]:hover {
+.duo-form-block button[type="submit"]:hover,
+.bm-comment-form button[type="submit"]:hover,
+.bm-tag-form button[type="submit"]:hover {
   color:var(--primary-color)
 }
 
@@ -257,3 +290,57 @@ display: none;
   background: var(--primary-color);
   color: yellow;
 }
+
+.view-comments-block,
+.view-tags-block {
+  display: none;
+  flex-flow: column nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: left;
+  width: 100%;
+  margin: auto;
+  overflow: hidden;
+  line-height: 1;
+}
+
+.bm-comment,
+.bm-tag {
+  font-size: 1rem;
+  margin: 0.3rem 0;
+  font-style: italic;
+  display: inline-block;
+}
+
+.bm-comment-delete-button,
+.bm-tag-delete-button {
+  display: inline;
+}
+
+.bm-comment-block,
+.bm-tag-block {
+  flex-flow: column nowrap;
+  border-bottom: 1px solid var(--light-color);
+}
+
+.bm-comment-form,
+.bm-tag-form {
+  margin-top: 0.3rem;
+  display: none;
+  width: 100%;
+}
+
+.bm-comment-form input[type="text"],
+.bm-tag-form input[type="text"] {
+  margin: auto;
+  font-size: 0.9rem;
+  padding: 0.35rem;
+  display: inline;
+}
+
+.bm-comment-form button[type="submit"],
+.bm-tag-form button[type="submit"] {
+  display: inline;
+  margin-left: 0.3rem;
+  padding: 0.1rem;
+} 

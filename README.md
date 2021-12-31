@@ -33,6 +33,11 @@ As a web surfer,
 So that I can record important points about a website
 I'd like to add comments to bookmarks 
 
+6. Users manage their bookmarks:
+As a web surfer,
+So that I can organize my bookmarks
+I'd like to add tags to bookmarks 
+
 
 #Database Setup
 ---------------

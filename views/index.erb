@@ -15,20 +15,43 @@
   </head>
   <body>
     <%# Homepage Title %>
-    <div id="main-title">
-      <a href="/"><h1>Basic Bookmarks</h1></a>
-    </div>
+    <nav>
+      <div id="main-title">
+        <a href="/"><h1>Basic Bookmarks</h1></a>
+        <%# Sign Up/Sign In/Sign Out Buttons %>
+        <% if !@user %>
+          <form action="/users/new" method="GET">
+            <input type="submit" value="Sign Up">
+          </form>
+          <form action="/users/login" method="GET">
+            <input type="submit" value="Sign In">
+          </form>
+        <% end %>
+
+        <% if @user %>
+            <form action="/users/signout" method="POST">
+              <input type="submit" value="Sign Out">
+            </form>
+        <% end %>
+      </div>
+    </nav>
+
     <div class="main-container">
+      <%# User Greeting %>
+      <% if @user %>
+        <div id="welcome">
+          <h1>Welcome <%= @user.email %>!</h1>
+        </div>
+      <% end %>
+  
       <%# View Bookmarks Button %>
       <div id="view-button">
         <form action="/view_bookmarks" method="get">
           <input type="submit" value="View Bookmarks">
         </form>
       </div> 
+
     <div>
+
   </body>
 </html>
-
-
-
-

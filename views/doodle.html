@@ -1,77 +1,26 @@
-<!-- 
-  #add
-Construct
----------
-1. (db_connection) = PG>Establish Connection To>TestDB
-2. (via db_connection) = Add bookmarks table to TestDB, populate bookmarks_table
-
-Add
----
-a. (db_connection1.5) = PG>Establish Connection To>TestDB
-b. (via db_connection1.5) = return array of hashes for bookmarks_table of TESTDB
-c. (via db_connection1.5) = wraps hashes into Bookmark objects within an array and returns the array
-
-
-1. (db_connection2) = PG>Establish Connection To>TestDB
-2. (via db_connection2) = Add row to bookmarks_table of TESTDB
-
-
-
-Deconstruct
-1. (db_connection3) = PG>Establish Connection To>TestDB
-2. 2. (via db_connection3) = Delete bookmarks_table of TESTDB 
--->
-
-
-
-
-
-
-
-
-
-<i class="fas fa-trash-alt"></i>
-<i class='fas fa-edit'></i>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="">
+  <title>Sign Up | Basic Bookmarks App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Lobster&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" type="text/css" href="/styles.css">
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
   <script src="/script.js" defer></script>
-  <title>Document</title>
 </head>
 <body>
-  
+  <h1>Sign Up</h1>
+  <form action="/users/new" method="POST">
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="username" placeholder="Enter Username">
+    <label for="password">Password:</label>
+    <input type="text" name="password" id="password" placeholder="Enter Password">
+    <button type="submit">Sign Up</button>
+  </form>
 </body>
 </html>
-
-
-<% if Bookmarks.all == nil %>
-<h2>No bookmarks added</h2>
-<% else %>
-<% Bookmarks.display.each do |site| %>
-  <%=site[0] + site[1] + site[2]%> <br><br>
-<% end %>
-<% end %>
-
-
-
-
-
-
-<h2>No added bookmarks</h2>
-
-<a href=""></a>
-
-<h1>Hello World!</h1>
-
-<form action="/bookmarks" method="get">
-  <input type='submit' value='See Bookmarks'>
-</form>
-
-<form action='/delete_bookmark' method='post'><input type='hidden' name='to_delete' value='#{site[:id]}'><input type='submit' value='Delete #{site[:title]}'></form>
-
-<input type='hidden' name='to_delete' value='#{site[:id]}'>

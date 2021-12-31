@@ -14,9 +14,26 @@
   </head>
   <body>
     <%# Homepage Title %>
-    <div id="main-title">
-      <a href="/"><h1>Basic Bookmarks</h1></a>
-    </div>
+    <nav>
+      <div id="main-title">
+        <a href="/"><h1>Basic Bookmarks</h1></a>
+        <%# Sign Up/Sign In/Sign Out Buttons %>
+        <% if !@user %>
+          <form action="/users/new" method="GET">
+            <input type="submit" value="Sign Up">
+          </form>
+          <form action="/users/login" method="GET">
+            <input type="submit" value="Sign In">
+          </form>
+        <% end %>
+
+        <% if @user %>
+            <form action="/users/signout" method="POST">
+              <input type="submit" value="Sign Out">
+            </form>
+        <% end %>
+      </div>
+    </nav>
     <div class="view-container">
       <%# Bookmarks Display %>
         <% if @bookmarks == nil %>
@@ -24,34 +41,76 @@
         <% else %>
           <% @bookmarks.each do |bookmark| %>
             <div class="bm-block">
+              <%# bookmark link %>
               <%=bookmark.display%><br> 
+              <%# bookmark editor buttons %>
               <div class="bm-editor">
+                 <%# delete button %>
                 <div class="bm-delete">
                   <%=bookmark.delete_button%>
                 </div>
+                 <%# edit button%>
                 <div class="bm-update">
                   <%=bookmark.edit_button%>    
-                </div>                
+                </div> 
+                <%# comment button%>  
+                <div class="bm-comments">
+                  <%=bookmark.comments_button%>
+                </div>             
+                <%# tag button%>
+                <div class="bm-tags">
+                  <%=bookmark.tags_button%>    
+                </div>                 
               </div>
+     
+              <%# bookmark editor forms %>
               <%=bookmark.edit_form%>
+              <%=bookmark.add_comment_form%>
+              <%=bookmark.add_tag_form%>
+
+              <%# view bookmark metadata %>
+              <div class='view-comments-block' id='view-comments-<%=bookmark.id%>'>
+                <%@comments.each do |comment| %>
+                  <%if comment.bookmark_id == bookmark.id%>
+                    <div class='bm-comment-block'>
+                      <%=comment.display_comment%>
+                      <%=comment.delete_button%>
+                    </div>
+                  <%end%>
+                <%end%>
+              </div>
+
+              <%# view bookmark tags %>
+              <div class='view-tags-block' id='view-tags-<%=bookmark.id%>'>
+                <%bookmark_tags = @tags.select { |tag| tag.bookmark_id == bookmark.id } %>
+                <%bookmark_tags.each do |tag|%>
+                  <div class='bm-tag-block'>
+                    <%=tag.display_tag%>
+                    <%=tag.delete_button%>
+                  </div>
+                <%end%>
+              </div>
+
             </div>
           <% end %>
         <% end %>
-      <%# Add Bookmark Form %>
     </div>
-    <div class='add-container'>
+
+    <%# Add bookmark form %>
+    <div class='duo-form-container'>
       <h2>Add A New Bookmark</h2>
-      <div class="add-block">
-        <form class='add-form' action="/new_bookmark" method="post">
+      <div class="duo-form-block">
+        <form class='duo-form' action="/new_bookmark" method="post">
           <input type="text" name="url" placeholder="Enter URL" id="add-url" required>
           <input type="text" name="title" placeholder="Enter title" id="add-title" required>
           <button type='submit' value='Submit'><i class="fas fa-plus fa-3x" id="add-submit"></i></button>
         </form>
         <div id='add-invalid-url' class='flash'>
-          <p class='message'><%= @flash %></p>
+          <p class='message'><%= flash[:notice] %></p>
         </div>
       </div>
     </div>
+
   </body>
 </html>
 
